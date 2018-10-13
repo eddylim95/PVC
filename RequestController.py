@@ -25,9 +25,15 @@ def getJson():
     json = request.get_json()
     print(json)
 
+    if json == None:
+        return {"Code": 404,
+                "Error": "Invalid Post Parameters!" }
+
     shopeeJson = getShopeeProductJson(json["url"])
     if shopeeJson == None:
-        return {"Code": 404 }
+        return {"Code": 404,
+                "Error": "Unable to retrieve data!" }
+
     productId = shopeeJson["item"]["itemid"]
     shopId = shopeeJson["item"]["shopid"]
     productName = shopeeJson["item"]["name"]
