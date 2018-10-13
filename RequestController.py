@@ -2,8 +2,11 @@ from flask import Flask
 from flask import request, jsonify
 import sys
 from GetShopeeProduct import getShopeeProductJson
+import logging
 
+logger = logging.getLogger(__name__)
 app = Flask(__name__)
+
 
 @app.route('/getJson', methods=['POST'])
 def getJson():
@@ -43,4 +46,19 @@ def getJson():
     print(content)
     return jsonify(content)
 
-app.run()
+
+logFormatter = logging.Formatter("%(asctime)s [%(filename)s] [%(funcName)s] [%(lineno)d] [%(levelname)-5.5s]  %(message)s")
+rootLogger = logging.getLogger()
+
+rootLogger.setLevel(logging.INFO)
+
+fileHandler = logging.FileHandler("team.log")
+fileHandler.setFormatter(logFormatter)
+rootLogger.addHandler(fileHandler)
+
+consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logFormatter)
+rootLogger.addHandler(consoleHandler)
+
+if __name__ == "__main__":
+    app.run()
