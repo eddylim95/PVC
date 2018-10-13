@@ -1,1 +1,1 @@
-web: gunicorn RequestController.py
+web: python RequestController.py
