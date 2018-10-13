@@ -14,6 +14,8 @@ def getJson():
     print(json)
 
     shopeeJson = getShopeeProductJson(json["url"])
+    if shopeeJson == None:
+        return {"Code": 404 }
     productId = shopeeJson["item"]["itemid"]
     shopId = shopeeJson["item"]["shopid"]
     productName = shopeeJson["item"]["name"]
