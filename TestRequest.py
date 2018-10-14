@@ -1,6 +1,6 @@
 import requests
 
-r = requests.post('https://pvc2018.herokuapp.com/getShopeeJson', json = {'url': 'https://shopee.sg/-Bundle-of-4-Dynamo-Laundry-Detergent-Power-Gel-(2.7L-3L)-i.14134779.186143848'})
+r = requests.post('http://127.0.0.1:5000/getShopeeJson', json = {'url': 'https://shopee.sg/Fannai-Men-Hoodie-Casual-Sportswear-Thin-Hoody-Zipper-Long-sleeve-Sweatshirt-i.40981095.650119448'})
 
 print('Posted')
 

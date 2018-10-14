@@ -56,7 +56,7 @@ def getShopeeJson():
     else:
         modelNamePrice = productName + "," + str(discountedPrice)
 
-    shippingCost = 0 if shopeeJson["item"]["show_free_shipping"] else getProductShippingCost(productId, shopId)
+    shippingCost = getProductShippingCost(productId, shopId)
 
     content = {
         "platform": "Shopee",
