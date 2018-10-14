@@ -1,1 +1,1 @@
-# Server for Intuition 2018 hackathon
+# Repo for Intuition 2018 hackathon
