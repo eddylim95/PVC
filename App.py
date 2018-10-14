@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request, jsonify
 import sys
-from GetShopeeProduct import getShopeeProductJson
+from GetShopeeProduct import getShopeeProductJson, getProductShippingCost
 import logging
 
 logger = logging.getLogger(__name__)
@@ -20,8 +20,8 @@ consoleHandler = logging.StreamHandler()
 consoleHandler.setFormatter(logFormatter)
 rootLogger.addHandler(consoleHandler)
 
-@app.route('/getJson', methods=['POST'])
-def getJson():
+@app.route('/getShopeeJson', methods=['POST'])
+def getShopeeJson():
     json = request.get_json()
     print(json)
 
@@ -54,16 +54,20 @@ def getJson():
             modelNamePrice += models[i]["name"] + "," + str(models[i]["price"] / shopeePriceNormalizeConstant) + "|"
         modelNamePrice = modelNamePrice[:-1]
     else:
-        modelNamePrice = [productName + "," + str(discountedPrice)]
+        modelNamePrice = productName + "," + str(discountedPrice)
+
+    shippingCost = 0 if shopeeJson["item"]["show_free_shipping"] else getProductShippingCost(productId, shopId)
 
     content = {
+        "platform": "Shopee",
         "productName": productName,
         "productId": productId,
         "shopId": shopId,
         "imageLink": imageLink,
-        "modelNamePrice": modelNamePrice
+        "modelNamePrice": modelNamePrice,
+        "shippingCost": shippingCost
     }
-    print(content)
+    #print(content)
     return jsonify(content)
 
 if __name__ == "__main__":
